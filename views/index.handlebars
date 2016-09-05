@@ -1,0 +1,44 @@
+<div class="container">
+    <h1>Chromecast Images</h1>
+    {{#each images}}
+        <div class="outsideImageHolder">
+            <div class="imageHolder" 
+                data-imageurl="{{url}}" 
+                style="background: url('{{imageURL}}') center center;
+                        background-size: cover;">
+        </div>
+        </div>
+    {{/each}}
+</div>
+
+<div id="lightbox">
+    <div id="lightbox-container">
+        <img id="lightbox-image" src="" />   
+    </div>
+</div>
+
+<script type="text/javascript">
+    window.onload = function() {
+        var imageObjects = document.getElementsByClassName('imageHolder');
+        var fadeInTime = 50;
+        for(var i=0; i < imageObjects.length; i++) {
+            (function(index) {
+                setTimeout(function() { 
+                    imageObjects[index].className += " initialized";
+                }, fadeInTime + fadeInTime*index);
+            })(i)
+            imageObjects[i].onclick = function(e) {
+                var lightbox = document.getElementById('lightbox');
+                lightbox.className = "active";
+                
+                var lightboxImage = document.getElementById('lightbox-image');
+                lightboxImage.src = e.target.getAttribute('data-imageURL');
+            }
+        }
+
+        var lightbox = document.getElementById('lightbox');
+        lightbox.onclick = function() {
+            lightbox.className = "";
+        }
+    };
+</script>
